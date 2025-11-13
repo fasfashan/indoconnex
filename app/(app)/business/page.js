@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Plus,
   MoreHorizontal,
@@ -35,211 +36,597 @@ function BusinessFeedView() {
   const { userBusinessPages } = useBusinessContext();
   const userBusiness = userBusinessPages[0]; // Get first business page
 
-  return (
-    <div className="min-h-screen bg-[#f9f9f9] py-6 px-8">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-[1fr_360px] gap-6">
-        {/* Left Column - Main Content */}
-        <div className="flex flex-col gap-5">
-          {/* Create Post Box */}
-          <div className="bg-white border border-[#d5d7da] rounded-lg p-6 flex items-center gap-6">
-            <div className="w-10 h-10 rounded-full bg-[#dde1e6]" />
-            <div className="flex-1 bg-white border border-[#d5d7da] rounded-lg px-4 py-3 flex items-center gap-2 cursor-pointer hover:bg-[#f9f9f9]">
-              <Edit2 className="w-5 h-5 text-[#717680]" />
-              <span className="text-base text-[#717680]">Create a post...</span>
-            </div>
-          </div>
+  // State for modal
+  const [showPostAsModal, setShowPostAsModal] = useState(false);
+  const [selectedPostAs, setSelectedPostAs] = useState("user"); // "user" or "business"
 
-          {/* Featured Business Section */}
-          <div className="bg-white border border-[#d5d7da] rounded-lg p-6 flex flex-col gap-3">
-            <h2 className="text-base font-medium text-black">
-              Featured Business
-            </h2>
-
-            {[1, 2, 3].map((i) => (
-              <div key={i}>
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-[60px] h-[60px] bg-[#dde1e6]" />
-                    <div className="flex flex-col gap-1">
-                      <p className="text-sm font-semibold text-[#414651]">
-                        Business Name
-                      </p>
-                      <p className="text-sm text-[#535862]">
-                        Business Category
-                      </p>
-                      <p className="text-sm text-[#535862]">29 followers</p>
-                    </div>
-                  </div>
-                  <button className="px-4 py-2 bg-[#f5f5f5] border border-[#d5d7da] rounded-lg text-sm font-semibold text-[#252b37] hover:bg-[#e9eaeb] flex items-center gap-2">
-                    <Plus className="w-5 h-5" />
-                    Follow
-                  </button>
-                </div>
-                {i < 3 && <div className="border-t border-[#d5d7da]" />}
-              </div>
-            ))}
-
-            <div className="pt-3 border-t border-[#d5d7da]">
-              <button className="w-full px-4 py-2 bg-[#f5f5f5] border border-[#d5d7da] rounded-lg text-sm font-semibold text-[#252b37] hover:bg-[#e9eaeb]">
-                Discover Business
-              </button>
-            </div>
-          </div>
-
-          {/* Discover Business Posts */}
-          {[1, 2].map((i) => (
-            <div
-              key={i}
-              className="bg-white border border-[#d5d7da] rounded-lg p-4 flex flex-col gap-4"
-            >
-              {/* Post Header */}
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#dde1e6]" />
-                  <div className="flex flex-col gap-1">
-                    <p className="text-sm font-semibold text-[#414651]">
-                      Garena
-                    </p>
-                    <p className="text-sm text-[#535862]">
-                      Entertainment Providers
-                    </p>
-                    <p className="text-xs text-[#535862]">3d ago</p>
-                  </div>
-                </div>
-                <button>
-                  <MoreHorizontal className="w-5 h-5 text-[#717680]" />
-                </button>
-              </div>
-
-              {/* Post Content */}
-              <p className="text-base text-black leading-6">
-                You don't need to rip and replace your SAP setup to use AI. This
-                playbook shows how to deploy AI into ECC, S/4HANA, or BTP
-                landscapes using a low-code{" "}
-                <span className="text-[#a4a7ae]">... more</span>
-              </p>
-
-              {/* Divider */}
-              <div className="border-t border-[#d5d7da]" />
-
-              {/* Post Actions */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <div className="w-8 h-8 rounded-full bg-[#dde1e6]" />
-                </div>
-                <div className="flex items-center gap-6">
-                  <div className="flex items-center gap-2">
-                    <MessageSquare className="w-5 h-5" />
-                    <span className="text-base text-black">200</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ThumbsUp className="w-5 h-5" />
-                    <span className="text-base text-black">200</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Right Column - Business Preview Card */}
-        <div className="h-fit sticky top-6">
-          <div className="bg-white border border-[#d5d7da] rounded-lg overflow-hidden">
-            {/* Cover Photo */}
-            <div className="h-[100px] bg-[#dde1e6]" />
-
-            {/* Business Info */}
-            <div className="p-4 pt-6">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex flex-col gap-1">
-                  <p className="text-sm font-semibold text-[#414651]">
-                    {userBusiness?.businessName || "Business Name"}
-                  </p>
-                  <p className="text-sm text-[#535862]">1281 Followers</p>
-                </div>
-                <Link
-                  href="/business/dashboard"
-                  className="text-sm font-medium text-black hover:underline"
-                >
-                  See Profile
-                </Link>
-              </div>
-
-              <div className="border-t border-[#d5d7da] pt-4">
-                <p className="text-sm font-medium text-[#181d27] mb-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </p>
-                <button className="text-sm font-semibold text-black hover:underline">
-                  Try Premium for free
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Component for users WITHOUT business page (Discover view - like image 2)
-function DiscoverBusinessView() {
-  // Dummy business data
-  const featuredBusinesses = [
-    {
-      id: 1,
-      name: "Renault Trucks",
-      category: "Manufacture & Supplies",
-      followers: 1247,
-      logo: "https://i.pravatar.cc/150?img=1",
-    },
-    {
-      id: 2,
-      name: "Scania AB",
-      category: "Manufacture & Supplies",
-      followers: 2834,
-      logo: "https://i.pravatar.cc/150?img=2",
-    },
-    {
-      id: 3,
-      name: "DAF Trucks",
-      category: "Manufacture & Supplies",
-      followers: 892,
-      logo: "https://i.pravatar.cc/150?img=3",
-    },
-  ];
-
+  // Dummy data for recommended businesses
   const recommendedBusinesses = [
     {
       id: 1,
-      name: "Renault Trucks (Volvo Group)",
-      category: "Manufacture & Supplies",
-      avatar: "https://i.pravatar.cc/150?img=4",
+      name: "Business Name",
+      category: "Business Category",
+      followers: 29,
+      avatar: "/Avatar.png",
     },
     {
       id: 2,
-      name: "Scania AB (Volkswagen Group)",
-      category: "Manufacture & Supplies",
-      avatar: "https://i.pravatar.cc/150?img=5",
+      name: "Business Name",
+      category: "Business Category",
+      followers: 29,
+      avatar: "/Avatar.png",
     },
     {
       id: 3,
-      name: "DAF Trucks (PACCAR Inc.)",
-      category: "Manufacture & Supplies",
-      avatar: "https://i.pravatar.cc/150?img=6",
-    },
-    {
-      id: 4,
-      name: "MAN Truck & Bus (Volkswage...",
-      category: "Manufacture & Supplies",
-      avatar: "https://i.pravatar.cc/150?img=7",
+      name: "Business Name",
+      category: "Business Category",
+      followers: 29,
+      avatar: "/Avatar.png",
     },
   ];
 
+  // Dummy data for business posts
   const businessPosts = [
     {
       id: 1,
       companyName: "Garena",
       companyCategory: "Entertainment Providers",
+      companyLogo: "/Avatar.png",
+      timeAgo: "3d ago",
+      content:
+        "You don't need to rip and replace your SAP setup to use AI. This playbook shows how to deploy AI into ECC, S/4HANA, or BTP landscapes using a low-code",
+      likes: 200,
+      comments: 200,
+      userAvatar: "/Avatar.png",
+    },
+    {
+      id: 2,
+      companyName: "Garena",
+      companyCategory: "Entertainment Providers",
+      companyLogo: "/Avatar.png",
+      timeAgo: "3d ago",
+      content:
+        "You don't need to rip and replace your SAP setup to use AI. This playbook shows how to deploy AI into ECC, S/4HANA, or BTP landscapes using a low-code",
+      likes: 200,
+      comments: 200,
+      userAvatar: "/Avatar.png",
+    },
+    {
+      id: 3,
+      companyName: "Garena",
+      companyCategory: "Entertainment Providers",
+      companyLogo: "/Avatar.png",
+      timeAgo: "3d ago",
+      content:
+        "You don't need to rip and replace your SAP setup to use AI. This playbook shows how to deploy AI into ECC, S/4HANA, or BTP landscapes using a low-code",
+      likes: 200,
+      comments: 200,
+      userAvatar: "/Avatar.png",
+    },
+    {
+      id: 4,
+      companyName: "Garena",
+      companyCategory: "Entertainment Providers",
+      companyLogo: "/Avatar.png",
+      timeAgo: "3d ago",
+      content:
+        "You don't need to rip and replace your SAP setup to use AI. This playbook shows how to deploy AI into ECC, S/4HANA, or BTP landscapes using a low-code",
+      likes: 200,
+      comments: 200,
+      userAvatar: "/Avatar.png",
+    },
+    {
+      id: 5,
+      companyName: "Garena",
+      companyCategory: "Entertainment Providers",
+      companyLogo: "/Avatar.png",
+      timeAgo: "3d ago",
+      content:
+        "You don't need to rip and replace your SAP setup to use AI. This playbook shows how to deploy AI into ECC, S/4HANA, or BTP landscapes using a low-code",
+      likes: 200,
+      comments: 200,
+      userAvatar: "/Avatar.png",
+    },
+  ];
+
+  return (
+    <div className="flex flex-1 overflow-y-auto">
+      <div className="flex max-w-5xl w-full gap-6 p-6 mx-auto">
+        {/* Main Content - Left Column */}
+        <section className="w-2/3 space-y-6">
+          {/* Create Post Box */}
+          <div className="bg-white border border-gray-200 shadow-xs rounded-lg p-6">
+            <div className="flex gap-6">
+              <img
+                src={selectedPostAs === "user" ? "/Avatar.png" : "/Avatar.png"}
+                alt="Avatar"
+                className="w-10 h-10 rounded-full"
+              />
+              <div className="flex-1 space-y-4">
+                {/* Post As Selection */}
+
+                {/* Input Field */}
+                <div className="bg-white border border-gray-200 rounded-lg px-3.5 py-2.5 flex items-center gap-2 cursor-pointer hover:border-gray-300">
+                  <Edit2 className="w-5 h-5 text-gray-500" />
+                  <span className="text-base font-medium text-gray-900">
+                    What's in your mind??
+                  </span>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-6">
+                  <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.667 1.667H5c-.917 0-1.659.75-1.659 1.666l-.007 13.334c0 .916.742 1.666 1.666 1.666h10c.917 0 1.667-.75 1.667-1.666V6.667l-5-5z"
+                        stroke="currentColor"
+                        strokeWidth="1.667"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M11.667 1.667v5h5M13.333 10.833H6.667M13.333 14.167H6.667M8.333 7.5H6.667"
+                        stroke="currentColor"
+                        strokeWidth="1.667"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span className="text-sm font-semibold">Article</span>
+                  </button>
+
+                  <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M15.833 3.333H4.167c-.92 0-1.667.746-1.667 1.667v10c0 .92.746 1.667 1.667 1.667h11.666c.92 0 1.667-.746 1.667-1.667V5c0-.92-.746-1.667-1.667-1.667z"
+                        stroke="currentColor"
+                        strokeWidth="1.667"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M7.5 8.333l5 3.334-5 3.333V8.333z"
+                        stroke="currentColor"
+                        strokeWidth="1.667"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span className="text-sm font-semibold">Video</span>
+                  </button>
+
+                  <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M15.833 2.5H4.167c-.92 0-1.667.746-1.667 1.667v11.666c0 .92.746 1.667 1.667 1.667h11.666c.92 0 1.667-.746 1.667-1.667V4.167c0-.92-.746-1.667-1.667-1.667z"
+                        stroke="currentColor"
+                        strokeWidth="1.667"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M7.083 8.333a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zM17.5 12.5l-4.167-4.167L4.167 17.5"
+                        stroke="currentColor"
+                        strokeWidth="1.667"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span className="text-sm font-semibold">Image</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Discover Business Page Widget */}
+          <div className="bg-white border border-gray-200 shadow-xs rounded-lg p-6 space-y-3">
+            <h2 className="text-base font-medium text-gray-900">
+              Discover business Page
+            </h2>
+
+            {[
+              {
+                id: 1,
+                name: "Murni Solusindo Nusantara",
+                category: "IT Services",
+                followers: 29,
+              },
+              {
+                id: 2,
+                name: "Murnicare",
+                category: "Healthcare",
+                followers: 29,
+              },
+              {
+                id: 3,
+                name: "Ergotron",
+                category: "Office Equipment",
+                followers: 29,
+              },
+            ].map((business, index) => (
+              <div key={business.id}>
+                <div className="flex items-center justify-between">
+                  <Link
+                    href="/business/murni-solusindo-nusantara"
+                    className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                  >
+                    <img
+                      src="/Avatar.png"
+                      alt="Business"
+                      className="w-8 h-8 rounded-full"
+                    />
+                    <div className="space-y-1">
+                      <p className="text-sm font-semibold text-gray-700">
+                        {business.name}
+                      </p>
+                      <p className="text-xs text-gray-600">
+                        {business.category}
+                      </p>
+                      <p className="text-xs text-gray-600">
+                        {business.followers} followers
+                      </p>
+                    </div>
+                  </Link>
+                  <button className="flex items-center gap-2 text-red-700 hover:text-red-800">
+                    <Plus className="w-5 h-5" />
+                    <span className="text-sm font-semibold">Follow</span>
+                  </button>
+                </div>
+                {index < 2 && <div className="border-t border-gray-200 my-3" />}
+              </div>
+            ))}
+
+            <div className="border-t border-gray-200 pt-3">
+              <button className="w-full bg-red-700 text-white text-sm font-semibold px-3.5 py-2 rounded-lg hover:bg-red-800">
+                See All
+              </button>
+            </div>
+          </div>
+
+          {/* Business Posts Feed */}
+          {businessPosts.map((post) => (
+            <div
+              key={post.id}
+              className="bg-white border border-gray-200 shadow-xs rounded-lg p-4 space-y-4"
+            >
+              {/* Post Header */}
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-2.5">
+                  <img
+                    src={post.companyLogo}
+                    alt={post.companyName}
+                    className="w-10 h-10 rounded"
+                  />
+                  <div className="space-y-1">
+                    <p className="text-sm font-semibold text-gray-700">
+                      {post.companyName}
+                    </p>
+                    <p className="text-xs text-gray-600">
+                      {post.companyCategory}
+                    </p>
+                    <p className="text-xs text-gray-600">{post.timeAgo}</p>
+                  </div>
+                </div>
+                <button>
+                  <MoreHorizontal className="w-5 h-5 text-gray-500" />
+                </button>
+              </div>
+
+              {/* Post Content */}
+              <p className="text-sm text-gray-900 leading-5">
+                {post.content} <span className="text-gray-400">... more</span>
+              </p>
+
+              {/* Divider */}
+              <div className="border-t border-gray-200" />
+
+              {/* Post Actions */}
+              <div className="flex items-center justify-between">
+                <div
+                  onClick={() => setShowPostAsModal(true)}
+                  className="flex items-center gap-1"
+                >
+                  <img
+                    src={post.userAvatar}
+                    alt="User"
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <button className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 mb-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4 6l4 4 4-4"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div className="flex items-center gap-6">
+                  <button className="flex items-center gap-2 text-gray-900 hover:text-gray-700">
+                    <MessageSquare className="w-4 h-4" />
+                    <span className="text-sm">{post.comments}</span>
+                  </button>
+                  <button className="flex items-center gap-2 text-gray-900 hover:text-gray-700">
+                    <ThumbsUp className="w-4 h-4" />
+                    <span className="text-sm">{post.likes}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </section>
+
+        {/* Sidebar - Right Column */}
+        <aside className="w-1/3 space-y-3.5 sticky top-6 self-start">
+          {/* Business Profile Card */}
+          <div className="bg-white border border-gray-200 shadow-xs rounded-lg overflow-hidden">
+            {/* Cover Photo */}
+            <div className="h-25 bg-linear-to-br from-amber-200 to-orange-300" />
+
+            {/* Profile Section */}
+            <div className="relative px-4 pb-4">
+              {/* Avatar */}
+              <div className="absolute -top-8 left-6">
+                <img
+                  src="/Avatar.png"
+                  alt="Business"
+                  className="w-16 h-16 rounded-full border-4 border-white"
+                />
+              </div>
+
+              {/* Business Info */}
+              <div className="pt-10 space-y-4">
+                <div className="space-y-1">
+                  <h3 className="text-lg font-medium text-gray-700">
+                    Business Page Name
+                  </h3>
+                  <p className="text-sm text-gray-700">1281 Followers</p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-gray-700">Profil viewers</p>
+                  <p className="text-sm text-red-700 font-medium">12</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Recommended for you Widget */}
+          <div className="bg-white border border-gray-200 shadow-xs rounded-lg p-6 space-y-3">
+            <h2 className="text-base font-medium text-gray-900">
+              Recommended for you
+            </h2>
+
+            {recommendedBusinesses.map((business, index) => (
+              <div key={business.id}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={business.avatar}
+                      alt={business.name}
+                      className="w-8 h-8 rounded-full"
+                    />
+                    <div className="space-y-1">
+                      <p className="text-sm font-semibold text-gray-700">
+                        {business.name}
+                      </p>
+                      <p className="text-xs text-gray-600">
+                        {business.category}
+                      </p>
+                      <p className="text-xs text-gray-600">
+                        {business.followers} followers
+                      </p>
+                    </div>
+                  </div>
+                  <button className="flex items-center gap-2 text-red-700 hover:text-red-800">
+                    <Plus className="w-5 h-5" />
+                    <span className="text-sm font-semibold">Follow</span>
+                  </button>
+                </div>
+                {index < recommendedBusinesses.length - 1 && (
+                  <div className="border-t border-gray-200 my-3" />
+                )}
+              </div>
+            ))}
+          </div>
+        </aside>
+      </div>
+
+      {/* Modal - Select Post As */}
+      {showPostAsModal && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-sm mx-4">
+            {/* Modal Header */}
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h3 className="text-base font-semibold text-gray-900">
+                Comment, react, and repost as
+              </h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Comment, react, and repost as
+              </p>
+            </div>
+
+            {/* Modal Body */}
+            <div className="px-6 py-4 space-y-3">
+              {/* User Option */}
+              <button
+                onClick={() => {
+                  setSelectedPostAs("user");
+                  setShowPostAsModal(false);
+                }}
+                className={`w-full flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+                  selectedPostAs === "user"
+                    ? "border-red-700 bg-red-50"
+                    : "border-gray-200 hover:border-gray-300"
+                }`}
+              >
+                <img
+                  src="/Avatar.png"
+                  alt="User"
+                  className="w-10 h-10 rounded-full"
+                />
+                <div className="text-left">
+                  <p className="text-sm font-semibold text-gray-900">
+                    User name
+                  </p>
+                </div>
+                {selectedPostAs === "user" && (
+                  <svg
+                    className="ml-auto w-5 h-5 text-red-700"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+              </button>
+
+              {/* Business Option */}
+              <button
+                onClick={() => {
+                  setSelectedPostAs("business");
+                  setShowPostAsModal(false);
+                }}
+                className={`w-full flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+                  selectedPostAs === "business"
+                    ? "border-red-700 bg-red-50"
+                    : "border-gray-200 hover:border-gray-300"
+                }`}
+              >
+                <img
+                  src="/Avatar.png"
+                  alt="Business"
+                  className="w-10 h-10 rounded"
+                />
+                <div className="text-left">
+                  <p className="text-sm font-semibold text-gray-900">
+                    Business name
+                  </p>
+                </div>
+                {selectedPostAs === "business" && (
+                  <svg
+                    className="ml-auto w-5 h-5 text-red-700"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="px-6 py-4 border-t border-gray-200 flex gap-3 justify-end">
+              <button
+                onClick={() => setShowPostAsModal(false)}
+                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => setShowPostAsModal(false)}
+                className="px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Component for users WITHOUT business page (Discover view)
+function DiscoverBusinessView() {
+  // Dummy business data for Featured Business widget
+  const featuredBusinesses = [
+    {
+      id: 1,
+      name: "Business Name",
+      category: "Business Category",
+      followers: 29,
+      logo: "https://i.pravatar.cc/150?img=1",
+    },
+    {
+      id: 2,
+      name: "Business Name",
+      category: "Business Category",
+      followers: 29,
+      logo: "https://i.pravatar.cc/150?img=2",
+    },
+    {
+      id: 3,
+      name: "Business Name",
+      category: "Business Category",
+      followers: 29,
+      logo: "https://i.pravatar.cc/150?img=3",
+    },
+  ];
+
+  // Dummy business data for Recommended widget
+  const recommendedBusinesses = [
+    {
+      id: 1,
+      name: "Business Name",
+      category: "Business Category",
+      avatar: "https://i.pravatar.cc/150?img=4",
+    },
+    {
+      id: 2,
+      name: "Business Name",
+      category: "Business Category",
+      avatar: "https://i.pravatar.cc/150?img=5",
+    },
+    {
+      id: 3,
+      name: "Business Name",
+      category: "Business Category",
+      avatar: "https://i.pravatar.cc/150?img=6",
+    },
+  ];
+
+  // Business posts data
+  const businessPosts = [
+    {
+      id: 1,
+      companyName: "Murni Solusindo Nusantara ",
+      companyCategory: "Entertainment ",
       companyLogo: "https://i.pravatar.cc/150?img=8",
       timeAgo: "3d ago",
       content:
@@ -250,169 +637,197 @@ function DiscoverBusinessView() {
     },
     {
       id: 2,
-      companyName: "Microsoft Indonesia",
-      companyCategory: "Technology Services",
+      companyName: "Garensadsada",
+      companyCategory: "Entertainment Providers",
       companyLogo: "https://i.pravatar.cc/150?img=10",
-      timeAgo: "5d ago",
+      timeAgo: "3d ago",
       content:
-        "Empowering businesses with cloud solutions and AI-driven tools to accelerate digital transformation. Join us in building the future of technology.",
-      reactions: 452,
-      comments: 89,
+        "You don't need to rip and replace your SAP setup to use AI. This playbook shows how to deploy AI into ECC, S/4HANA, or BTP landscapes using a low-code",
+      reactions: 200,
+      comments: 200,
       userAvatar: "https://i.pravatar.cc/150?img=11",
     },
     {
       id: 3,
-      companyName: "Tokopedia",
-      companyCategory: "E-Commerce Platform",
+      companyName: "Garena",
+      companyCategory: "Entertainment Providers",
       companyLogo: "https://i.pravatar.cc/150?img=12",
-      timeAgo: "1w ago",
+      timeAgo: "3d ago",
       content:
-        "We're excited to announce our new merchant partnership program! Help local businesses grow with our comprehensive e-commerce solutions and reach millions of customers.",
-      reactions: 1024,
-      comments: 156,
+        "You don't need to rip and replace your SAP setup to use AI. This playbook shows how to deploy AI into ECC, S/4HANA, or BTP landscapes using a low-code",
+      reactions: 200,
+      comments: 200,
       userAvatar: "https://i.pravatar.cc/150?img=13",
     },
   ];
 
   return (
-    <div className="max-w-[1400px] mx-auto">
-      <div className="grid grid-cols-1 ">
-        {/* Main Content */}
-        <div className="flex flex-col gap-5">
+    <div className="flex flex-1 overflow-y-auto">
+      <div className="flex max-w-5xl w-full gap-6 p-6 mx-auto">
+        {/* Left Column - Main Content (2/3) */}
+        <section className="w-2/3 space-y-6">
           {/* Discover Business Pages Card */}
-          <div className="bg-white border border-[#dde1e6] rounded-lg p-6 flex flex-col gap-3">
-            <h2 className="text-base font-medium text-black">
+          <div className="bg-white border border-gray-200 shadow-xs rounded-lg p-6">
+            <h2 className="text-base font-semibold text-gray-900 mb-2">
               Discover Business Pages
             </h2>
-            <p className="text-base text-[#535862]">
+            <p className="text-base text-gray-600 mb-4">
               Share stories, ideas, and updates that inspire your network.
             </p>
             <Link
               href="/business/create"
-              className="bg-[#f5f5f5] border border-[#d5d7da] rounded-lg px-3.5 py-2 flex items-center gap-2 self-start hover:bg-[#e9eaeb] transition-colors"
+              className="inline-flex items-center gap-2 bg-red-700 hover:bg-red-800 text-white px-3.5 py-2 rounded-lg text-sm font-semibold transition-colors"
             >
-              <Plus className="w-5 h-5 text-[#252b37]" />
-              <span className="text-sm font-semibold text-[#252b37]">
-                Create Business Page
-              </span>
+              <Plus className="w-5 h-5" />
+              Create Business Page
             </Link>
           </div>
 
-          {/* Featured Business Card */}
-          <div className="bg-white border border-[#dde1e6] rounded-lg p-6 flex flex-col gap-3">
-            <h2 className="text-base font-medium text-black">
-              Featured Business
+          {/* Discover Business Page Widget */}
+          <div className="bg-white border border-gray-200 shadow-xs rounded-lg p-6">
+            <h2 className="text-base font-semibold text-gray-900 mb-4">
+              Discover business Page
             </h2>
 
-            {featuredBusinesses.map((business, index) => (
-              <div key={business.id}>
-                <div className="flex items-center justify-between">
-                  <div className="flex gap-3 items-start">
-                    <img
-                      src={business.logo}
-                      alt={business.name}
-                      className="w-[60px] h-[60px] rounded object-cover"
-                    />
-                    <div className="flex flex-col gap-1">
-                      <p className="text-sm font-semibold text-[#414651]">
-                        {business.name}
-                      </p>
-                      <p className="text-sm text-[#535862]">
-                        {business.category}
-                      </p>
-                      <p className="text-sm text-[#535862]">
-                        {business.followers} followers
-                      </p>
+            <div className="space-y-4">
+              {featuredBusinesses.map((business) => (
+                <div key={business.id}>
+                  <div className="flex items-start justify-between">
+                    <div className="flex gap-3 items-start">
+                      <img
+                        src={business.logo}
+                        alt={business.name}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                      <div>
+                        <p className="text-sm font-semibold text-gray-700">
+                          {business.name}
+                        </p>
+                        <p className="text-xs text-gray-600">
+                          {business.category}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {business.followers} followers
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <button className="bg-[#f5f5f5] border border-[#d5d7da] rounded-lg px-3.5 py-2 flex items-center gap-2 hover:bg-[#e9eaeb] transition-colors">
-                    <Plus className="w-5 h-5 text-[#252b37]" />
-                    <span className="text-sm font-semibold text-[#252b37]">
+                    <button className="flex items-center gap-2 text-red-700 hover:text-red-800 text-sm font-semibold">
+                      <Plus className="w-5 h-5" />
                       Follow
-                    </span>
-                  </button>
+                    </button>
+                  </div>
+                  {business.id !== featuredBusinesses.length && (
+                    <div className="border-t border-gray-200 mt-4" />
+                  )}
                 </div>
-                {index < featuredBusinesses.length - 1 && (
-                  <div className="border-t border-[#dde1e6] mt-3" />
-                )}
-              </div>
-            ))}
-
-            <div className="border-t border-[#dde1e6] pt-3">
-              <button className="bg-[#f5f5f5] border border-[#d5d7da] rounded-lg px-3.5 py-2 hover:bg-[#e9eaeb] transition-colors w-full">
-                <span className="text-sm font-semibold text-[#252b37]">
-                  Discover Business
-                </span>
-              </button>
+              ))}
             </div>
+
+            <button className="w-full mt-4 px-3.5 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg text-sm font-semibold transition-colors">
+              See All
+            </button>
           </div>
 
-          {/* Business Posts */}
+          {/* Business Posts Feed */}
           {businessPosts.map((post) => (
             <div
               key={post.id}
-              className="bg-white border border-[#dde1e6] rounded-lg p-4 flex flex-col gap-4"
+              className="bg-white border border-gray-200 shadow-xs rounded-lg p-6"
             >
               {/* Post Header */}
-              <div className="flex items-start justify-between">
-                <div className="flex gap-2.5 items-center">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start gap-2.5">
                   <img
                     src={post.companyLogo}
                     alt={post.companyName}
-                    className="w-10 h-10 rounded object-cover"
+                    className="w-10 h-10 object-cover"
                   />
-                  <div className="flex flex-col gap-1">
-                    <p className="text-sm font-semibold text-[#414651]">
+                  <div>
+                    <p className="text-sm font-semibold text-gray-700">
                       {post.companyName}
                     </p>
-                    <p className="text-sm text-[#535862]">
+                    <p className="text-xs text-gray-600">
                       {post.companyCategory}
                     </p>
-                    <p className="text-xs text-[#535862]">{post.timeAgo}</p>
+                    <p className="text-xs text-gray-500">{post.timeAgo}</p>
                   </div>
                 </div>
-                <button className="p-0 hover:bg-gray-100 rounded">
-                  <MoreHorizontal className="w-5 h-5 text-[#717680]" />
+                <button>
+                  <MoreHorizontal className="w-5 h-5 text-gray-500" />
                 </button>
               </div>
 
               {/* Post Content */}
-              <p className="text-base text-black">
-                {post.content} <span className="text-[#a4a7ae]">... more</span>
+              <p className="text-sm text-gray-900 leading-5 mb-4">
+                {post.content} <span className="text-gray-500">... more</span>
               </p>
 
               {/* Divider */}
-              <div className="border-t border-[#dde1e6]" />
+              <div className="border-t border-gray-200 mb-4" />
 
-              {/* Post Footer */}
+              {/* Post Actions */}
               <div className="flex items-center justify-between">
-                <div className="flex gap-1 items-center">
-                  <img
-                    src={post.userAvatar}
-                    alt="User"
-                    className="w-8 h-8 rounded-full object-cover"
-                  />
-                </div>
-                <div className="flex gap-6 items-center">
-                  <div className="flex gap-2 items-center">
-                    <MessageSquare className="w-5 h-5 text-[#252b37]" />
-                    <span className="text-base text-black">
-                      {post.comments}
-                    </span>
-                  </div>
-                  <div className="flex gap-2 items-center">
-                    <ThumbsUp className="w-5 h-5 text-[#252b37]" />
-                    <span className="text-base text-black">
-                      {post.reactions}
-                    </span>
-                  </div>
+                <img
+                  src={post.userAvatar}
+                  alt="User"
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+                <div className="flex items-center gap-6">
+                  <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+                    <MessageSquare className="w-4 h-4" />
+                    <span className="text-base">{post.comments}</span>
+                  </button>
+                  <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+                    <ThumbsUp className="w-4 h-4" />
+                    <span className="text-base">{post.reactions}</span>
+                  </button>
                 </div>
               </div>
             </div>
           ))}
-        </div>
+        </section>
 
-        {/* Right Sidebar - Business Recommendations */}
+        {/* Right Column - Widgets (1/3) */}
+        <aside className="w-1/3 space-y-6">
+          {/* Recommended Business Card */}
+          <div className="bg-white border border-gray-200 shadow-xs rounded-lg p-6 sticky top-6 self-start">
+            <h2 className="text-base font-semibold text-gray-900 mb-4">
+              Recommended for you
+            </h2>
+
+            <div className="space-y-3">
+              {recommendedBusinesses.map((business) => (
+                <div key={business.id}>
+                  <div className="flex items-start justify-between">
+                    <div className="flex gap-3 items-start">
+                      <img
+                        src={business.avatar}
+                        alt={business.name}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                      <div>
+                        <p className="text-sm font-semibold text-gray-700">
+                          {business.name}
+                        </p>
+                        <p className="text-xs text-gray-600">
+                          {business.category}
+                        </p>
+                        <p className="text-xs text-gray-500">29 followers</p>
+                      </div>
+                    </div>
+                    <button className="flex items-center gap-2 text-red-700 hover:text-red-800 text-sm font-semibold">
+                      <Plus className="w-5 h-5" />
+                      Follow
+                    </button>
+                  </div>
+                  {business.id !== recommendedBusinesses.length && (
+                    <div className="border-t border-gray-200 mt-3" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   );

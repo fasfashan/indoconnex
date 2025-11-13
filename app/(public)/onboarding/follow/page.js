@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import Image from "next/image";
 export default function FollowOnboarding() {
   const router = useRouter();
   const [followedBusinesses, setFollowedBusinesses] = useState([]);
@@ -12,21 +12,21 @@ export default function FollowOnboarding() {
   const recommendations = [
     {
       id: 1,
-      category: "Technology",
+      category: "Murni Solusindo Nusantara",
       title: "Tech Innovators Indonesia",
       image:
         "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop",
     },
     {
       id: 2,
-      category: "Food & Beverage",
+      category: "Indoconnex",
       title: "Jakarta Coffee Community",
       image:
         "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop",
     },
     {
       id: 3,
-      category: "Fashion",
+      category: "Murnicare",
       title: "Indonesian Fashion Hub",
       image:
         "https://images.unsplash.com/photo-1558769132-cb1aea3bcb5c?w=400&h=300&fit=crop",
@@ -65,6 +65,11 @@ export default function FollowOnboarding() {
   };
 
   const handleFinish = () => {
+    // Check if user has followed at least 3 accounts
+    if (followedBusinesses.length < 3) {
+      return;
+    }
+
     // Save followed businesses to localStorage (for prototype)
     localStorage.setItem(
       "followedBusinesses",
@@ -77,20 +82,31 @@ export default function FollowOnboarding() {
     <div className="min-h-screen bg-white pb-20">
       {/* Logo */}
       <div className="absolute top-8 left-20">
-        <div className="text-2xl font-bold text-red-500">INDOCONNEX</div>
+        <Image src="/logo.svg" alt="INDOCONNEX Logo" width={120} height={40} />
       </div>
 
       {/* Header with Skip Button */}
       <div className="pt-[118px] px-20">
-        <div className="flex items-start justify-between mb-12">
-          <h1 className="text-xl leading-[30px] font-medium text-[#21272a] font-['Inter']">
-            Follow Business, Community
-          </h1>
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h1 className="text-xl leading-[30px] font-medium text-[#21272a] font-['Inter'] mb-2">
+              Follow Business, Community
+            </h1>
+            <p className="text-sm text-gray-600">
+              Follow at least 3 accounts to continue (
+              {followedBusinesses.length}/3)
+            </p>
+          </div>
           <button
             onClick={handleFinish}
-            className="text-sm text-red-500 font-['Roboto'] hover:underline"
+            disabled={followedBusinesses.length < 3}
+            className={`px-6 py-2 rounded-lg text-sm font-medium transition-colors ${
+              followedBusinesses.length >= 3
+                ? "bg-red-700 text-white hover:bg-red-600"
+                : "bg-gray-200 text-gray-400 cursor-not-allowed"
+            }`}
           >
-            Skip
+            Next
           </button>
         </div>
 
@@ -131,8 +147,8 @@ export default function FollowOnboarding() {
                     onClick={() => toggleFollow(business.id)}
                     className={`w-full h-12 border-2 text-base font-medium font-['Roboto'] tracking-[0.5px] transition-colors ${
                       isFollowing
-                        ? "bg-white border-red-500 text-red-500 hover:bg-red-50"
-                        : "bg-red-500 border-red-500 text-white hover:bg-red-600"
+                        ? "bg-white  text-red-500 hover:bg-red-50"
+                        : "bg-red-700  text-white hover:bg-red-600"
                     }`}
                   >
                     {isFollowing ? "Following" : "Follow"}
@@ -144,16 +160,22 @@ export default function FollowOnboarding() {
         </div>
 
         {/* Finish Button */}
-        {followedBusinesses.length > 0 && (
-          <div className="mt-12 max-w-[400px] mx-auto">
-            <button
-              onClick={handleFinish}
-              className="w-full h-12 bg-red-500 border-2 border-red-500 text-white text-base font-medium font-['Roboto'] tracking-[0.5px] hover:bg-red-600 transition-colors"
-            >
-              Continue to Feed
-            </button>
-          </div>
-        )}
+        <div className="mt-12 max-w-[400px] mx-auto">
+          <button
+            onClick={handleFinish}
+            disabled={followedBusinesses.length < 3}
+            className={`w-full h-12 text-base font-medium font-['Roboto'] tracking-[0.5px] transition-colors rounded-lg ${
+              followedBusinesses.length >= 3
+                ? "bg-red-700 text-white hover:bg-red-600"
+                : "bg-gray-200 text-gray-400 cursor-not-allowed"
+            }`}
+          >
+            Continue to Feed{" "}
+            {followedBusinesses.length >= 3
+              ? ""
+              : `(${followedBusinesses.length}/3)`}
+          </button>
+        </div>
       </div>
     </div>
   );

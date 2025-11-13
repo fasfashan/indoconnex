@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import Image from "next/image";
 export default function CountryOnboarding() {
   const router = useRouter();
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -34,7 +34,7 @@ export default function CountryOnboarding() {
     <div className="min-h-screen bg-white">
       {/* Logo */}
       <div className="absolute top-8 left-20">
-        <div className="text-2xl font-bold text-red-500">INDOCONNEX</div>
+        <Image src="/logo.svg" alt="INDOCONNEX Logo" width={120} height={40} />
       </div>
 
       {/* Main Content */}
@@ -90,18 +90,10 @@ export default function CountryOnboarding() {
               {/* Continue Button */}
               <button
                 type="submit"
-                className="w-full h-12 bg-red-500 border-2 border-red-500 text-white text-base font-medium font-['Roboto'] tracking-[0.5px] flex items-center justify-center hover:bg-red-600 transition-colors"
+                className="w-full h-12 bg-red-700  text-white text-base  tracking-[0.5px] flex items-center justify-center hover:bg-red-800 transition-colors"
               >
                 Continue
               </button>
-
-              {/* Skip Link */}
-              <Link
-                href="/onboarding/follow"
-                className="text-sm text-red-500 text-center font-['Roboto'] hover:underline"
-              >
-                Skip
-              </Link>
             </form>
           </div>
         </div>

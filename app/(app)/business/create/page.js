@@ -74,7 +74,7 @@ export default function CreateBusinessPage() {
   ];
 
   return (
-    <div className="bg-white border border-[#dde1e6] w-full">
+    <div className="bg-white border border-[#dde1e6] max-w-4xl mt-6 m-auto">
       {/* Header Section */}
       <div className="px-6 py-6 border-b border-[#dde1e6]">
         {/* Back Button */}
