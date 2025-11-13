@@ -295,10 +295,13 @@ function BusinessFeedView() {
               </div>
             ))}
 
-            <div className="border-t border-gray-200 pt-3">
-              <button className="w-full bg-red-700 text-white text-sm font-semibold px-3.5 py-2 rounded-lg hover:bg-red-800">
+            <div className="border-t w-full border-gray-200 pt-3">
+              <Link
+                href="/business/discover"
+                className="w-full bg-red-700 text-white text-sm font-semibold px-3.5 py-2 rounded-lg hover:bg-red-800"
+              >
                 See All
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -726,9 +729,12 @@ function DiscoverBusinessView() {
               ))}
             </div>
 
-            <button className="w-full mt-4 px-3.5 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg text-sm font-semibold transition-colors">
+            <Link
+              href="/business/discover"
+              className="w-full mt-4 px-3.5 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg text-sm font-semibold transition-colors"
+            >
               See All
-            </button>
+            </Link>
           </div>
 
           {/* Business Posts Feed */}
