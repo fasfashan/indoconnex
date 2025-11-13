@@ -59,7 +59,7 @@ export default function BusinessDetailPage({ params }) {
         {/* Business Profile Card */}
         <div className="bg-white border-x border-b border-[#d5d7da] rounded-bl-lg rounded-br-lg">
           {/* Business Avatar - Positioned absolute over cover */}
-          <div className="relative px-6 -mt-[48px]">
+          <div className="relative px-6 -mt-12">
             <img
               src={businessData.avatar}
               alt={businessData.name}

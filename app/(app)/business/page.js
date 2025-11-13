@@ -404,9 +404,12 @@ function BusinessFeedView() {
               {/* Business Info */}
               <div className="pt-10 space-y-4">
                 <div className="space-y-1">
-                  <h3 className="text-lg font-medium text-gray-700">
+                  <Link
+                    href="/business/dashboard"
+                    className="text-xl hover:underline font-semibold"
+                  >
                     Business Page Name
-                  </h3>
+                  </Link>
                   <p className="text-sm text-gray-700">1281 Followers</p>
                 </div>
 

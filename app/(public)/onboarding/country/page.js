@@ -43,7 +43,7 @@ export default function CountryOnboarding() {
           <div className="flex flex-col gap-12">
             {/* Header */}
             <div className="flex flex-col gap-2">
-              <h1 className="text-[36px] leading-[44px] font-medium text-[#21272a] font-['Inter']">
+              <h1 className="text-[36px] leading-11 font-medium text-[#21272a] font-['Inter']">
                 Select your country
               </h1>
             </div>

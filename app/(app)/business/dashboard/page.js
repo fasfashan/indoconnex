@@ -30,7 +30,7 @@ export default function BusinessDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f2f4f8]">
+    <div className="min-h-screen  max-w-5xl m-auto my-10">
       {viewMode === "admin" ? (
         <>
           <div className="relative">
@@ -71,7 +71,7 @@ export default function BusinessDashboard() {
             </div>
           </div>
 
-          <div className="flex gap-6 px-8 pt-6">
+          <div className="flex gap-6  pt-6">
             <div className="w-[180px] bg-white border border-[#d5d7da] rounded-lg p-6 h-fit">
               <div className="flex flex-col gap-6">
                 <button

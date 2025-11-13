@@ -295,7 +295,7 @@ export default function FeedPage() {
                     <img
                       src={business.avatar}
                       alt={business.name}
-                      className="w-[40px] h-[40px] rounded-full object-cover"
+                      className="w-10 h-10 rounded-full object-cover"
                     />
                     <div className="space-y-1">
                       <p className="text-sm font-semibold text-gray-700">
@@ -319,12 +319,6 @@ export default function FeedPage() {
                 )}
               </div>
             ))}
-
-            <div className="pt-3 border-t border-gray-200">
-              <button className="w-full px-4 py-2 bg-red-700 text-white  rounded-lg text-sm font-semibold text-gray-900 hover:bg-red-800 transition-colors">
-                Discover Business
-              </button>
-            </div>
           </div>
         </div>
       </div>

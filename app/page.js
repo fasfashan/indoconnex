@@ -295,7 +295,7 @@ export default function LandingPage() {
 
       {/* CTA Section */}
       <section className="bg-[#f2f4f8] px-20 py-20">
-        <div className="max-w-[1280px] mx-auto flex gap-20 items-center">
+        <div className="max-w-7xl mx-auto flex gap-20 items-center">
           <div className="flex-1 flex flex-col gap-16 py-20">
             <div className="flex flex-col gap-12">
               <h2 className="text-5xl font-medium text-[#21272a] leading-[60px] tracking-[-0.96px]">

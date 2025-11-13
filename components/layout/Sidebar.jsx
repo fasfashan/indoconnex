@@ -66,7 +66,7 @@ export default function Sidebar() {
   return (
     <aside
       className={`${
-        isCollapsed ? "w-[80px]" : "w-[300px]"
+        isCollapsed ? "w-20" : "w-[300px]"
       } h-screen bg-white border-r border-[#d5d7da] sticky top-0 flex flex-col transition-all duration-300`}
     >
       {/* Toggle Button */}
