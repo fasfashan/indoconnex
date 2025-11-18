@@ -24,7 +24,7 @@ const navigationItems = [
   { label: "Charity", href: "/charity", icon: Heart },
   { label: "Place", href: "/place", icon: MapPin },
   { label: "Jobs", href: "/jobs", icon: BriefcaseBusiness },
-  { label: "Products", href: "/products", icon: ShoppingBag },
+  { label: "Products & Services", href: "/products", icon: ShoppingBag },
 ];
 
 export default function Header() {

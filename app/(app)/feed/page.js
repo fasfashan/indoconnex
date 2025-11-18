@@ -14,6 +14,7 @@ import {
   Bookmark,
   Share2,
   Play,
+  Repeat,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -314,11 +315,15 @@ export default function FeedPage() {
                 <div className="flex items-center gap-6">
                   <button className="flex items-center gap-2 text-gray-900 hover:text-gray-600 transition-colors">
                     <MessageSquare size={16} />
-                    <span className="text-xs">{post.comments}</span>
+                    <span className="text-xs">Comments</span>
                   </button>
                   <button className="flex items-center gap-2 text-gray-900 hover:text-gray-600 transition-colors">
                     <ThumbsUp size={16} />
-                    <span className="text-xs">{post.likes}</span>
+                    <span className="text-xs">Like</span>
+                  </button>
+                  <button className="flex items-center gap-2 text-gray-900 hover:text-gray-600 transition-colors">
+                    <Repeat size={16} />
+                    <span className="text-xs">Repost</span>
                   </button>
                   <button className="flex items-center gap-2 text-gray-900 hover:text-gray-600 transition-colors">
                     <Share2 size={16} />
