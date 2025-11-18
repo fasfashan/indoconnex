@@ -45,7 +45,7 @@ export default function FeedPage() {
       type: "text", // text only post
       author: {
         name: "Muhamad Fasha Fadillah",
-        category: "Web Designer",
+        category: "",
         avatar:
           "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=100&h=100&fit=crop",
       },

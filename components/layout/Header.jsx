@@ -14,17 +14,20 @@ import {
   MapPin,
   BriefcaseBusiness,
   ShoppingBag,
+  School,
 } from "lucide-react";
 import Image from "next/image";
 const navigationItems = [
   { label: "Feed", href: "/feed", icon: Home },
   { label: "Business", href: "/business", icon: Briefcase },
-  { label: "Articles", href: "/articles", icon: FileText },
-  { label: "Community", href: "/community", icon: Users },
-  { label: "Charity", href: "/charity", icon: Heart },
+  { label: "Products", href: "/products", icon: ShoppingBag },
   { label: "Place", href: "/place", icon: MapPin },
   { label: "Jobs", href: "/jobs", icon: BriefcaseBusiness },
-  { label: "Products & Services", href: "/products", icon: ShoppingBag },
+  { label: "Education", href: "/education", icon: School },
+  { label: "Community", href: "/community", icon: Users },
+  { label: "Charity", href: "/charity", icon: Heart },
+
+  { label: "Articles", href: "/articles", icon: FileText },
 ];
 
 export default function Header() {
