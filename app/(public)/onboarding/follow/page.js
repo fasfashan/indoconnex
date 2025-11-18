@@ -90,7 +90,7 @@ export default function FollowOnboarding() {
         <div className="flex items-start justify-between mb-4">
           <div>
             <h1 className="text-xl leading-[30px] font-medium text-[#21272a] font-['Inter'] mb-2">
-              Follow Business, Community
+              Follow Business, Community, and People
             </h1>
             <p className="text-sm text-gray-600">
               Follow at least 3 accounts to continue (

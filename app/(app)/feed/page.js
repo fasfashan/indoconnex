@@ -10,13 +10,19 @@ import {
   Edit2,
   FileText,
   Video,
+  ChevronRight,
+  Bookmark,
+  Share2,
+  Play,
 } from "lucide-react";
 import Image from "next/image";
 
 export default function FeedPage() {
+  const [playingVideo, setPlayingVideo] = useState(null);
   const [posts] = useState([
     {
       id: 1,
+      type: "image", // post with image
       author: {
         name: "Garena",
         category: "Entertainment Providers",
@@ -25,28 +31,36 @@ export default function FeedPage() {
       },
       content:
         "You don't need to rip and replace your SAP setup to use AI. This playbook shows how to deploy AI into ECC, S/4HANA, or BTP landscapes using a low-code...",
+      image:
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=400&fit=crop",
       timeAgo: "3d ago",
       likes: 200,
       comments: 200,
+      shares: 45,
       avatar: "/Avatar.png",
     },
     {
       id: 2,
+      type: "text", // text only post
       author: {
-        name: "Muhamad Fasha Fadillah ",
+        name: "Muhamad Fasha Fadillah",
         category: "Web Designer",
         avatar:
           "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=100&h=100&fit=crop",
       },
       content:
-        "Exciting news! We're launching our new seller dashboard with AI-powered analytics. Track your store performance in real-time and get personalized recommendations...",
+        "Exciting news! We're launching our new seller dashboard with AI-powered analytics. Track your store performance in real-time and get personalized recommendations to boost your sales. The future of e-commerce is here!",
       timeAgo: "5d ago",
       likes: 350,
       comments: 89,
+      shares: 23,
       avatar: "/Avatar.png",
     },
     {
       id: 3,
+      type: "video", // post with video
+      videoUrl:
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
       author: {
         name: "Gojek",
         category: "Transportation & Delivery",
@@ -54,14 +68,16 @@ export default function FeedPage() {
           "https://images.unsplash.com/photo-1569025690938-a00729c9e1f9?w=100&h=100&fit=crop",
       },
       content:
-        "Proud to announce that we've reached 50 million monthly active users! Thank you for trusting us with your daily transportation and food delivery needs...",
+        "Proud to announce that we've reached 50 million monthly active users! Thank you for trusting us with your daily transportation and food delivery needs. Watch our journey...",
       timeAgo: "1w ago",
       likes: 520,
       comments: 145,
+      shares: 78,
       avatar: "/Avatar.png",
     },
     {
       id: 4,
+      type: "text", // text only post
       author: {
         name: "Shopee",
         category: "E-commerce Marketplace",
@@ -69,10 +85,30 @@ export default function FeedPage() {
           "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop",
       },
       content:
-        "Flash sale alert! 🔥 Up to 90% off on selected items this weekend. Don't miss out on amazing deals from your favorite brands...",
+        "Flash sale alert! 🔥 Up to 90% off on selected items this weekend. Don't miss out on amazing deals from your favorite brands. Limited stock available!",
       timeAgo: "2w ago",
       likes: 890,
       comments: 234,
+      shares: 156,
+      avatar: "/Avatar.png",
+    },
+    {
+      id: 5,
+      type: "image", // post with image
+      author: {
+        name: "Tech Innovators",
+        category: "Technology Solutions",
+        avatar:
+          "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop",
+      },
+      content:
+        "We're thrilled to announce our new AI-powered platform that's revolutionizing the way businesses operate. Join us on this exciting journey!",
+      image:
+        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop",
+      timeAgo: "3w ago",
+      likes: 445,
+      comments: 67,
+      shares: 34,
       avatar: "/Avatar.png",
     },
   ]);
@@ -192,13 +228,13 @@ export default function FeedPage() {
                     className="w-10 h-10 rounded-full object-cover"
                   />
                   <div className="space-y-1">
-                    <p className="text-sm font-semibold text-gray-700">
+                    <p className="text-sm font-semibold text-[#414651]">
                       {post.author.name}
                     </p>
-                    <p className="text-xs text-gray-600">
+                    <p className="text-xs text-[#535862]">
                       {post.author.category}
                     </p>
-                    <p className="text-xs text-gray-600">{post.timeAgo}</p>
+                    <p className="text-xs text-[#535862]">{post.timeAgo}</p>
                   </div>
                 </div>
                 <button className="text-gray-600 hover:text-gray-900">
@@ -207,12 +243,59 @@ export default function FeedPage() {
               </div>
 
               {/* Post Content */}
-              <p className="text-sm text-black leading-6">
+              <p className="text-sm text-black leading-5">
                 {post.content}{" "}
-                <span className="text-gray-400 hover:underline cursor-pointer">
-                  more
+                <span className="text-[#a4a7ae] hover:underline cursor-pointer">
+                  ... more
                 </span>
               </p>
+
+              {/* Media Content - Conditional rendering based on post type */}
+              {post.type === "image" && post.image && (
+                <div className="w-full h-[289px] rounded-lg overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt="Post image"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+
+              {post.type === "video" && post.videoUrl && (
+                <div className="relative w-full h-[289px] rounded-lg overflow-hidden">
+                  {playingVideo === post.id ? (
+                    <video
+                      className="w-full h-full object-cover"
+                      controls
+                      autoPlay
+                      src={post.videoUrl}
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <div
+                      className="relative w-full h-full group cursor-pointer"
+                      onClick={() => setPlayingVideo(post.id)}
+                    >
+                      <video
+                        src={`${post.videoUrl}#t=0.1`}
+                        className="w-full h-full object-cover"
+                        preload="metadata"
+                        muted
+                      />
+                      {/* Play button overlay */}
+                      <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-40 transition-all">
+                        <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Play
+                            className="w-8 h-8 text-gray-900 ml-1"
+                            fill="currentColor"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Divider */}
               <div className="border-t border-gray-200" />
@@ -231,11 +314,15 @@ export default function FeedPage() {
                 <div className="flex items-center gap-6">
                   <button className="flex items-center gap-2 text-gray-900 hover:text-gray-600 transition-colors">
                     <MessageSquare size={16} />
-                    <span className="text-sm">{post.comments}</span>
+                    <span className="text-xs">{post.comments}</span>
                   </button>
                   <button className="flex items-center gap-2 text-gray-900 hover:text-gray-600 transition-colors">
                     <ThumbsUp size={16} />
-                    <span className="text-sm">{post.likes}</span>
+                    <span className="text-xs">{post.likes}</span>
+                  </button>
+                  <button className="flex items-center gap-2 text-gray-900 hover:text-gray-600 transition-colors">
+                    <Share2 size={16} />
+                    <span className="text-xs">Share</span>
                   </button>
                 </div>
               </div>
@@ -246,7 +333,7 @@ export default function FeedPage() {
         </div>
 
         {/* Right Sidebar - 35% */}
-        <div className="w-1/3 space-y-6">
+        <div className="w-1/3 space-y-6 sticky top-6 self-start">
           {/* Profile Card */}
           <div className="bg-white border shadow-xs border-gray-200 rounded-lg overflow-hidden sticky top-6 self-start z-10">
             {/* Cover Photo */}
@@ -276,9 +363,16 @@ export default function FeedPage() {
               </div>
 
               {/* Profile Stats */}
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-gray-700">Profile viewers</span>
-                <span className="text-red-500 font-medium">12</span>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-gray-700">Profile viewers</span>
+                  <span className="text-red-700 font-medium">12</span>
+                </div>
+                <div className="flex text-xs items-center justify-between ">
+                  <h2 className="text-gray-700">Bookmark </h2>
+
+                  <span className="text-red-700 font-medium">32</span>
+                </div>
               </div>
             </div>
           </div>

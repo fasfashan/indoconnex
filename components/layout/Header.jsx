@@ -2,63 +2,84 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Bell, User } from "lucide-react";
+import {
+  Search,
+  Bell,
+  User,
+  Home,
+  Briefcase,
+  FileText,
+  Users,
+  Heart,
+  MapPin,
+  BriefcaseBusiness,
+  ShoppingBag,
+} from "lucide-react";
 import Image from "next/image";
 const navigationItems = [
-  { label: "Feed", href: "/feed" },
-  { label: "Business", href: "/business" },
-  { label: "Articles", href: "/articles" },
-  { label: "Community", href: "/community" },
-  { label: "Charity", href: "/charity" },
-  { label: "Place", href: "/place" },
-  { label: "Jobs", href: "/jobs" },
-  { label: "Products", href: "/products" },
+  { label: "Feed", href: "/feed", icon: Home },
+  { label: "Business", href: "/business", icon: Briefcase },
+  { label: "Articles", href: "/articles", icon: FileText },
+  { label: "Community", href: "/community", icon: Users },
+  { label: "Charity", href: "/charity", icon: Heart },
+  { label: "Place", href: "/place", icon: MapPin },
+  { label: "Jobs", href: "/jobs", icon: BriefcaseBusiness },
+  { label: "Products", href: "/products", icon: ShoppingBag },
 ];
 
 export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-white border-b border-gray-200">
-      <div className="h-full px-6 flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/feed"
-          className="text-xl font-bold text-red-500 hover:text-red-600 transition-colors"
-        >
-          <Image
-            src="/logo.svg"
-            alt="INDOCONNEX Logo"
-            width={120}
-            height={40}
-          />
-        </Link>
+    <header className="sticky top-0 z-20 bg-white border-b border-gray-200">
+      <div className=" max-w-7xl m-auto px-6 flex items-center justify-between">
+        <div className="flex py-2 gap-8 items-center">
+          {/* Logo */}
+          <Link
+            href="/feed"
+            className="text-xl font-bold text-red-500 hover:text-red-600 transition-colors"
+          >
+            <Image
+              src="/logo.svg"
+              alt="INDOCONNEX Logo"
+              width={88}
+              height={40}
+            />
+          </Link>
 
-        {/* Center Navigation */}
-        <nav className="flex items-center gap-6">
-          {navigationItems.map((item) => {
-            const isActive = pathname.startsWith(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`text-sm font-medium transition-colors relative pb-1 ${
-                  isActive
-                    ? "text-gray-900 font-semibold"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                {item.label}
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-700" />
-                )}
-              </Link>
-            );
-          })}
-        </nav>
+          {/* Center Navigation */}
+          <nav className="flex items-center gap-8">
+            {navigationItems.map((item) => {
+              const isActive = pathname.startsWith(item.href);
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`text-xs py-2 flex flex-col items-center gap-2 font-medium transition-colors relative pb-1 ${
+                    isActive
+                      ? "text-gray-900 font-semibold"
+                      : "text-gray-500 font-normal hover:text-gray-900"
+                  }`}
+                >
+                  <Icon
+                    size={20}
+                    className={`inline-block mr-1 ${
+                      isActive ? "text-red-700" : ""
+                    }`}
+                  />
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute top-16 left-0 right-0 h-0.5 bg-red-700" />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
 
         {/* Right Section */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 py-2">
           {/* Search Bar */}
           <div className="relative">
             <Search
