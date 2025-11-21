@@ -3,6 +3,10 @@
 		"testing-indoconnex": {
 			"url": "http://127.0.0.1:3845/mcp",
 			"type": "http"
+		},
+		"my-mcp-server-1a0804ad": {
+			"url": "http://127.0.0.1:3845/mcp",
+			"type": "http"
 		}
 	},
 	"inputs": []

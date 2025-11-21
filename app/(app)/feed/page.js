@@ -19,7 +19,6 @@ import {
 import Image from "next/image";
 
 export default function FeedPage() {
-  const [playingVideo, setPlayingVideo] = useState(null);
   const [posts] = useState([
     {
       id: 1,
@@ -60,8 +59,8 @@ export default function FeedPage() {
     {
       id: 3,
       type: "video", // post with video
-      videoUrl:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      youtubeEmbedUrl:
+        "https://www.youtube.com/embed/NHUv6DlUyD4?si=ZdqRPtVlW0GY90k5",
       author: {
         name: "Gojek",
         category: "Transportation & Delivery",
@@ -222,7 +221,7 @@ export default function FeedPage() {
             >
               {/* Post Header */}
               <div className="flex items-start justify-between">
-                <div className="flex gap-2.5 items-center">
+                <div className="flex gap-2.5 ">
                   <img
                     src={post.author.avatar}
                     alt={post.author.name}
@@ -262,39 +261,17 @@ export default function FeedPage() {
                 </div>
               )}
 
-              {post.type === "video" && post.videoUrl && (
-                <div className="relative w-full h-[289px] rounded-lg overflow-hidden">
-                  {playingVideo === post.id ? (
-                    <video
-                      className="w-full h-full object-cover"
-                      controls
-                      autoPlay
-                      src={post.videoUrl}
-                    >
-                      Your browser does not support the video tag.
-                    </video>
-                  ) : (
-                    <div
-                      className="relative w-full h-full group cursor-pointer"
-                      onClick={() => setPlayingVideo(post.id)}
-                    >
-                      <video
-                        src={`${post.videoUrl}#t=0.1`}
-                        className="w-full h-full object-cover"
-                        preload="metadata"
-                        muted
-                      />
-                      {/* Play button overlay */}
-                      <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-40 transition-all">
-                        <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <Play
-                            className="w-8 h-8 text-gray-900 ml-1"
-                            fill="currentColor"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )}
+              {post.type === "video" && post.youtubeEmbedUrl && (
+                <div className="w-full h-[289px] rounded-lg overflow-hidden">
+                  <iframe
+                    className="w-full h-full"
+                    src={post.youtubeEmbedUrl}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
                 </div>
               )}
 
